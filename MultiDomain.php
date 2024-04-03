@@ -25,7 +25,7 @@ class MultiDomain{
       $properties = array('blogname', 'siteurl', 'home', 'blogdescription', 'template');
 
       foreach($properties as $property) {
-        if($this->domain[$property]){
+  cd       if(isset($this->domain[$property])){
           add_filter("option_$property", array( $this, $property ), 1);
 
           if($property == 'template') {
@@ -43,7 +43,7 @@ class MultiDomain{
   }
 
   function current_domain() {
-    return $_SERVER[SERVER_NAME];
+    return $_SERVER['SERVER_NAME'];
   }
 
   function get_domain() {
@@ -51,7 +51,7 @@ class MultiDomain{
 
     if($domains) {
       foreach($domains as $domain) {
-        if($this->current_domain() == $domain[domain]){
+        if($this->current_domain() == $domain['domain']){
           $this->domain = $domain;
         }
       }
@@ -60,34 +60,34 @@ class MultiDomain{
 
   /* Set Site Properties */
   function blogname() {
-    return $this->domain[blogname];
+    return $this->domain['blogname'];
   }
 
   function siteurl() {
-    return $this->domain[siteurl];
+    return $this->domain['siteurl'];
   }
 
   function home() {
-    return $this->domain[home];
+    return $this->domain['home'];
   }
 
   function blogdescription() {
-    return $this->domain[blogdescription];
+    return $this->domain['blogdescription'];
   }
 
   function stylesheet() {
-    return $this->domain[stylesheet];
+    return $this->domain['stylesheet'];
   }
 
   function template() {
-    return $this->domain[template];
+    return $this->domain['template'];
   }
 
   /* Conditional Shortcodes */
   function if_domain( $attributes, $content = null ) {
     extract( shortcode_atts( array( 'domain' => null ), $attributes ) );
 
-    if( $domain == $this->domain[domain] ) {
+    if( $domain == $this->domain['domain'] ) {
       $this->conditional_fired = true;
       return do_shortcode( $content );
     }
