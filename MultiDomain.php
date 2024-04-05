@@ -25,7 +25,7 @@ class MultiDomain{
       $properties = array('blogname', 'siteurl', 'home', 'blogdescription', 'template');
 
       foreach($properties as $property) {
-  cd       if(isset($this->domain[$property])){
+        if(isset($this->domain[$property])){
           add_filter("option_$property", array( $this, $property ), 1);
 
           if($property == 'template') {
